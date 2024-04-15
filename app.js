@@ -9,6 +9,7 @@ const placesRoute = require('./routes/places');
 const usersRoute = require('./routes/users');
 const HttpError = require('./models/http-error');
 
+const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -37,8 +38,8 @@ app.use((error, req, res, next) => {
 mongoose
     .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.vpkefk7.mongodb.net/`)
     .then(() => {
-        console.log('app is running');
-        app.listen(process.env.PORT || 5000);
+        console.log(`app is running on port ${PORT}`);
+        app.listen(PORT);
     })
     .catch(error => {
         console.log(error);
