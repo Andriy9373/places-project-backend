@@ -23,6 +23,7 @@ app.use((req, res, next) => {
 })
 
 app.use((error, req, res, next) => {
+    console.log(error);
     if (req.file) {
         fs.unlink(req.file.path, err => {
             console.log(err);
@@ -31,7 +32,8 @@ app.use((error, req, res, next) => {
     if (res.headerSend) {
         return next(error);
     }
-    res.status(error.code || 500);
+    // res.status(error.code || 500);
+    res.status(500);
     res.json({ message: error.message || 'Something went wrong' });
 })
 
